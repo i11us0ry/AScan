@@ -17,14 +17,14 @@ Usage of AScan.exe:
   
   运行时根据需求输入参数即可
   
-  ![[Pasted image 20220401195416.png]]
+  ![image](https://github.com/i11us0ry/AScan/blob/main/img/Pasted%20image%2020220401195416.png)
 
 # 保存结果
-AScan会将查询结果分为两部分。
-第一部分以查询公司、分支公司及对外投资公司为单位的xlsx表格。表格内容包括基本信息、网站备案、分支机构、微信公众号、对外投资、软件著作权信息(APP)，方便红队和攻防中做备用计划
+  AScan会将查询结果分为两部分。
+  第一部分以查询公司、分支公司及对外投资公司为单位的xlsx表格。表格内容包括基本信息、网站备案、分支机构、微信公众号、对外投资、软件著作权信息(APP)，方便红队和攻防中做备用计划
   
-![[Pasted image 20220401195020.png]]
+  ![image](https://github.com/i11us0ry/AScan/blob/main/img/Pasted%20image%20220401195020.png)
 
-第二部分为查询公司、分支公司、备案信息及对外投资50%以上公司的域名信息整合，方便快速扫描或做下一步信息收集
-
-![[Pasted image 20220401195229.png]]
+  第二部分为查询公司、分支公司、备案信息及对外投资50%以上公司的域名信息整合，方便快速扫描或做下一步信息收集
+  
+  ![image](https://github.com/i11us0ry/AScan/blob/main/img/Pasted%20image%20220401195229.png)
