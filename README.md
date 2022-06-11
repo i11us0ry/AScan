@@ -25,6 +25,7 @@ Usage of AScan.exe:
 
 # 保存结果
   AScan会将查询结果分为两部分。
+  
   第一部分以查询公司、分支公司及对外投资公司为单位的xlsx表格。表格内容包括基本信息、网站备案、分支机构、微信公众号、对外投资、软件著作权信息(APP)，方便红队和攻防中做备用计划
   
   ![image](https://github.com/i11us0ry/AScan/blob/main/img/Pasted%20image%2020220401195020.png)
