@@ -13,7 +13,7 @@ Usage of AScan.exe:
 # 使用说明
   首次使用先运行AScan.exe，会自动生成配置文件和保存目录。生成完配置文件后手动添加cookie，程序提示cookie过期或提示需要更新cookie时也需要更新cookie
   
-  ![[Pasted image 20220401194624.png]]
+  ![image]( https://github.com/i11us0ry/AScan/blob/main/img/Pasted%20image%2020220401194624.png 
   
   运行时根据需求输入参数即可
   
