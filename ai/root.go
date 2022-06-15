@@ -9,6 +9,7 @@ import (
 	"github.com/tidwall/sjson"
 	"github.com/xuri/excelize/v2"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -104,9 +105,18 @@ func outPutExcelByEnInfo(enInfo EnInfo, options common.Options,sn *common.Sun) {
 
 	f.DeleteSheet("Sheet1")
 	// Save spreadsheet by the given path.
-	savaPath := options.Output + "\\" +
-		time.Now().Format("2006-01-02") +
-		enInfo.EntName + strconv.FormatInt(time.Now().Unix(), 10) + ".xlsx"
+	sysType := runtime.GOOS
+	savaPath := ""
+	if sysType == "windows"{
+		savaPath = options.Output + "\\" +
+			time.Now().Format("2006-01-02") +
+			enInfo.EntName + strconv.FormatInt(time.Now().Unix(), 10) + ".xlsx"
+	} else {
+		savaPath = options.Output + "/" +
+			time.Now().Format("2006-01-02") +
+			enInfo.EntName + strconv.FormatInt(time.Now().Unix(), 10) + ".xlsx"
+	}
+
 	// 将所有子公司名字收集
 	sn.Name = append(sn.Name, enInfo.EntName)
 	if err := f.SaveAs(savaPath); err != nil {

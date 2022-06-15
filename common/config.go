@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"runtime"
 )
 
 type Options struct {
@@ -49,7 +50,13 @@ type Web interface {
 }
 
 func CheckConf() *Conf{
-	config := GetConfigDir() + "\\conf.yml"
+	sysType := runtime.GOOS
+	config := ""
+	if sysType == "windows"{
+		config = GetConfigDir() + "\\conf.yml"
+	} else {
+		config = GetConfigDir() + "/conf.yml"
+	}
 	_, exist := os.Stat(config)
 	// 文件不存在
 	if os.IsNotExist(exist) {
@@ -62,9 +69,14 @@ func CheckConf() *Conf{
 func writeConf(fileName string) *Conf{
 	conf := &Conf{}
 	conf.Version = Version
-	conf.Output = GetConfigDir() + "\\result"
+	sysType := runtime.GOOS
+	if sysType == "windows"{
+		conf.Output = GetConfigDir() + "\\result"
+	} else {
+		conf.Output = GetConfigDir() + "/result"
+	}
 	conf.Cookies = "cookie"
-	file, _ := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+	file, _ := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)
 	defer file.Close()
 	enc := yaml.NewEncoder(file)
 	err := enc.Encode(conf)
@@ -77,12 +89,14 @@ func writeConf(fileName string) *Conf{
 
 func readConf() *Conf{
 	conf := &Conf{}
-	yamlFile, err := ioutil.ReadFile(GetConfigDir() + "\\conf.yml")
-	if err != nil {
-		gologger.Labelf("conf.yml read err!\n")
-		os.Exit(1)
+	sysType := runtime.GOOS
+	var yamlFile []byte
+	if sysType == "windows"{
+		yamlFile, _ = ioutil.ReadFile(GetConfigDir() + "\\conf.yml")
+	} else {
+		yamlFile, _ = ioutil.ReadFile(GetConfigDir() + "/conf.yml")
 	}
-	err = yaml.Unmarshal(yamlFile, conf)
+	err := yaml.Unmarshal(yamlFile, conf)
 	if err != nil {
 		fmt.Println()
 		gologger.Labelf("conf.yml read err!\n")
@@ -121,7 +135,7 @@ func (info *WebInfo)Check (d, t string){
 
 // 写入domain_title
 func writeFile(fileName string, d, t string) {
-	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE, 0666) //打开文件
+	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0777) //打开文件
 	defer f.Close()
 	if err != nil {
 		gologger.Labelf("%v 打开失败!",fileName)
@@ -129,13 +143,13 @@ func writeFile(fileName string, d, t string) {
 	}
 	// 将文件写进去
 	if _, err = io.WriteString(f, fmt.Sprintf("Domain:%-60v Title:%v\n",d,t)); err != nil {
-		gologger.Labelf("%v 写入失败!",fileName)
+		gologger.Labelf("%v 写入失败! %v",fileName,err)
 		return
 	}
 }
 
 func WriteSun(fileName string,sn []string){
-	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE, 0666) //打开文件
+	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0777) //打开文件
 	defer f.Close()
 	if err != nil {
 		gologger.Labelf("%v 打开失败! %v",fileName,err)
