@@ -307,7 +307,7 @@ func getCompanyInfoById(pid string, isSearch bool, options common.Options,sn *co
 
 // getInfoList 获取信息列表
 func getInfoList(pid string, types string, options common.Options) []gjson.Result {
-	urls := "https://aiqicha.baidu.com/" + types + "?size=100&pid=" + pid
+	urls := "https://aiqicha.baidu.com/" + types + "?pid=" + pid
 	content := common.GetReq(urls, options)
 	var listData []gjson.Result
 	if gjson.Get(string(content), "status").String() == "0" {
