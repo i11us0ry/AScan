@@ -22,8 +22,9 @@ func GetReq(url string, options Options) []byte {
 		"Accept":     {"text/html, application/xhtml+xml, image/jxr, */*"},
 		"Cookie":     {options.CookieInfo},
 		//"Accept-Encoding": {"gzip, deflate"},
-		"Referer": {"https://aifanfan.baidu.com/"},
+		"Referer": {"https://www.baidu.com"},
 	}
+	//fmt.Println(options.CookieInfo)
 	resp, err := client.Do(req)
 	if err != nil {
 		gologger.Errorf("请求发生错误，5秒后重试\n%s\n", err)
